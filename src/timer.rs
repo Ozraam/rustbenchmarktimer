@@ -33,9 +33,11 @@ impl CountdownTimer {
     }
 
     pub fn remaining(&self) -> Duration {
-        self.duration.checked_sub(self.elapsed()).unwrap_or(Duration::new(0, 0))
+        self.duration
+            .checked_sub(self.elapsed())
+            .unwrap_or(Duration::new(0, 0))
     }
-    
+
     pub fn elapsed(&self) -> Duration {
         self.start.elapsed()
     }
@@ -129,11 +131,11 @@ impl BenchmarkTimer {
         println!("Benchmark results:");
         for (name, (count, total)) in &self.finished {
             println!(
-                "{} - count: {} - total: {}ms - average: {}ms",
+                "{} - count: {} - total: {}ms - average: {}ns",
                 name,
                 count,
                 total.as_millis(),
-                self.average(name).as_millis()
+                self.average(name).as_nanos()
             );
         }
     }
